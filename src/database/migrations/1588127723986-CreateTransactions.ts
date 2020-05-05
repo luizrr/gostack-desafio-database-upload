@@ -8,6 +8,7 @@ import {
 export default class CreateTransactions1588127723986
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
     await queryRunner.createTable(
       new Table({
         name: 'transactions',
@@ -17,6 +18,7 @@ export default class CreateTransactions1588127723986
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'title',
